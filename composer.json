@@ -1,5 +1,5 @@
 {
-    "name": "monteiro/EmailApiBundle",
+    "name": "monteiro/  EmailApiBundle",
     "type": "symfony-bundle",
     "description": "Symfony EmailApiBundle",
     "keywords": ["Email"],
@@ -14,10 +14,11 @@
     ],
     "require": {
         "php": ">=5.5",
-        "symfony/framework-bundle": "~2.3"
+        "symfony/framework-bundle": "~2.3",
+        "symfony/yaml": "~2.3"
     },
     "require-dev": {
-        "symfony/yaml": "~2.3"
+        "symfony-cmf/testing": "1.2.*"
     },
     "autoload": {
         "psr-4": { "HP\\Bundle\\EmailApiBundle\\": "" }
