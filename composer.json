@@ -18,7 +18,6 @@
         "symfony/yaml": "~2.3"
     },
     "require-dev": {
-        "symfony-cmf/testing": "1.2.*"
     },
     "autoload": {
         "psr-4": { "HP\\Bundle\\EmailApiBundle\\": "" }
