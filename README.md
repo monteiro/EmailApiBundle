@@ -1,1 +1,1 @@
-# EmapiBundle
+# EmailApiBundle

@@ -1,5 +1,5 @@
 {
-    "name": "monteirio/EmailApiBundle",
+    "name": "monteiro/EmailApiBundle",
     "type": "symfony-bundle",
     "description": "Symfony EmailApiBundle",
     "keywords": ["Email"],
