@@ -1,0 +1,30 @@
+{
+    "name": "monteirio/EmailApiBundle",
+    "type": "symfony-bundle",
+    "description": "Symfony EmailApiBundle",
+    "keywords": ["Email"],
+    "homepage": "https://github.com/monteiro/EmailApiBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hugo Monteiro",
+            "email": "hugo.monteiro@gmail.com",
+            "homepage": "http://monteiro.github.io"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "symfony/framework-bundle": "~2.3"
+    },
+    "require-dev": {
+        "symfony/yaml": "~2.3"
+    },
+    "autoload": {
+        "psr-4": { "HP\\Bundle\\EmailApiBundle\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    }
+}
