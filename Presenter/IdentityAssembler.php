@@ -1,8 +1,8 @@
 <?php
-namespace HP\Bundle\EmailApiBundle\ViewModel;
+namespace HP\Bundle\EmailApiBundle\Presenter;
 
 use HP\Bundle\EmailApiBundle\Entity\Identity;
-use HP\Bundle\EmailApiBundle\ViewModel\DTO\IdentityDTO;
+use HP\Bundle\EmailApiBundle\Presenter\DTO\IdentityDTO;
 
 class IdentityAssembler
 {

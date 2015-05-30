@@ -1,5 +1,5 @@
 <?php
-namespace HP\Bundle\EmailApiBundle\ViewModel;
+namespace HP\Bundle\EmailApiBundle\Presenter;
 
 class InboxMessagesAssembler
 {

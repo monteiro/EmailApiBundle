@@ -1,5 +1,5 @@
 <?php
-namespace HP\Bundle\EmailApiBundle\ViewModel\DTO;
+namespace HP\Bundle\EmailApiBundle\Presenter\DTO;
 
 class IdentityDTO
 {

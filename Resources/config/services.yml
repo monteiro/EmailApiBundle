@@ -17,21 +17,21 @@ services:
     email_api.user.provider:
         class: HP\Bundle\EmailApiBundle\Security\TokenOAuthUserProvider
 
-    email_api.view_model.identity_assembler:
-        class: HP\Bundle\EmailApiBundle\ViewModel\IdentityAssembler
+    email_api.presenter.identity_assembler:
+        class: HP\Bundle\EmailApiBundle\Presenter\IdentityAssembler
 
-    email_api.view_model.inbox_message_assembler:
-        class: HP\Bundle\EmailApiBundle\ViewModel\InboxMessageAssembler
+    email_api.presenter.inbox_message_assembler:
+        class: HP\Bundle\EmailApiBundle\Presenter\InboxMessageAssembler
         arguments:
-            - @email_api.view_model.identity_assembler
+            - @email_api.presenter.identity_assembler
 
-    email_api.view_model.inbox_messages_assembler:
-        class: HP\Bundle\EmailApiBundle\ViewModel\InboxMessagesAssembler
+    email_api.presenter.inbox_messages_assembler:
+        class: HP\Bundle\EmailApiBundle\Presenter\InboxMessagesAssembler
         arguments:
-            - @email_api.view_model.inbox_message_assembler
+            - @email_api.presenter.inbox_message_assembler
 
     email_api.controller.inbox:
         class: HP\Bundle\EmailApiBundle\Controller\InboxController
         arguments:
             - @email_api.user.gateway.google_api
-            - @email_api.view_model.inbox_messages_assembler
+            - @email_api.presenter.inbox_messages_assembler

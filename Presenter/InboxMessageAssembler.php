@@ -1,8 +1,8 @@
 <?php
-namespace HP\Bundle\EmailApiBundle\ViewModel;
+namespace HP\Bundle\EmailApiBundle\Presenter;
 
 use HP\Bundle\EmailApiBundle\Entity\InboxMessage;
-use HP\Bundle\EmailApiBundle\ViewModel\DTO\InboxMessageDTO;
+use HP\Bundle\EmailApiBundle\Presenter\DTO\InboxMessageDTO;
 
 class InboxMessageAssembler
 {
