@@ -25,7 +25,7 @@ class InboxMessage
     private $subject;
 
     /**
-     * @var $timestamp timestamp in miliseconds of the message date
+     * @var $timestamp int in milliseconds of the message date
      */
     private $timestamp;
 
