@@ -1,6 +1,10 @@
 <?php
 namespace HP\Bundle\EmailApiBundle\Presenter\DTO;
 
+/**
+ * Class IdentityDTO
+ * DTO that specifies an Identity that will be shown to the user.
+ */
 class IdentityDTO
 {
     /**

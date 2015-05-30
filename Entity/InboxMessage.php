@@ -1,6 +1,10 @@
 <?php
 namespace HP\Bundle\EmailApiBundle\Entity;
 
+/**
+ * Class InboxMessage
+ * Entity that specifies an InboxMessage.
+ */
 class InboxMessage
 {
     /**

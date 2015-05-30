@@ -1,6 +1,10 @@
 <?php
 namespace HP\Bundle\EmailApiBundle\Gateway;
 
+/**
+ * Interface EmailApiGatewayInterface
+ * Email Api operations
+ */
 interface EmailApiGatewayInterface
 {
     const MAX_RESULTS_DEFAULT = 50;

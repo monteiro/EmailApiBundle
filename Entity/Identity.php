@@ -1,6 +1,10 @@
 <?php
 namespace HP\Bundle\EmailApiBundle\Entity;
 
+/**
+ * Class Identity
+ * Entity that specifies an Identity in a recipient (e.g. John due <john.due@example.com>)
+ */
 class Identity
 {
     /**

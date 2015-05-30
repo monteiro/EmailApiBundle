@@ -9,7 +9,6 @@ use HP\Bundle\EmailApiBundle\Presenter\DTO\IdentityDTO;
  *
  * Assembles the Identity entity and creates a DTO.
  * This DTO will later be used as a Presenter model.
- *
  */
 class IdentityAssembler
 {

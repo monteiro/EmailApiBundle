@@ -1,6 +1,10 @@
 <?php
 namespace HP\Bundle\EmailApiBundle\Presenter;
 
+/**
+ * Class InboxMessagesAssembler
+ * Serializes an array of inbox messages.
+ */
 class InboxMessagesAssembler
 {
     /**

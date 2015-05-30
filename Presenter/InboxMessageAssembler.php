@@ -4,6 +4,10 @@ namespace HP\Bundle\EmailApiBundle\Presenter;
 use HP\Bundle\EmailApiBundle\Entity\InboxMessage;
 use HP\Bundle\EmailApiBundle\Presenter\DTO\InboxMessageDTO;
 
+/**
+ * Class InboxMessageAssembler
+ * Converts the InboxMessage into a DTO to be shown to the user.
+ */
 class InboxMessageAssembler
 {
     /**

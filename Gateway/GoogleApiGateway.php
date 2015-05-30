@@ -5,6 +5,10 @@ use HP\Bundle\EmailApiBundle\Entity\Identity;
 use HP\Bundle\EmailApiBundle\Entity\InboxMessage;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
+/**
+ * Class GoogleApiGateway
+ * All of the Google Api operations. (e.g. Retrieving messages, authenticating, etc)
+ */
 class GoogleApiGateway implements EmailApiGatewayInterface
 {
     /**

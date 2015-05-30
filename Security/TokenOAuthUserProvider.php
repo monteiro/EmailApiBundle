@@ -9,6 +9,8 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
  * TokenOAuthUserProvider (taken from OAuthUserProvider of HWI/oauth-bundle)
+ *
+ * The provider is called by the Authenticator.
  */
 class TokenOAuthUserProvider implements UserProviderInterface, OAuthAwareUserProviderInterface
 {

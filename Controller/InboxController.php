@@ -6,6 +6,10 @@ use HP\Bundle\EmailApiBundle\Presenter\InboxMessagesAssembler;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+/**
+ * Class InboxController
+ * Controller that calls all the operations done at the inbox level (e.g. getMessages of the inbox)
+ */
 class InboxController extends Controller
 {
     /**

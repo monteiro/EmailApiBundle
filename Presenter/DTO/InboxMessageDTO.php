@@ -1,6 +1,10 @@
 <?php
 namespace HP\Bundle\EmailApiBundle\Presenter\DTO;
 
+/**
+ * Class InboxMessageDTO
+ * DTO that specifies an InboxMessage that will be shown to the user.
+ */
 class InboxMessageDTO
 {
     /**

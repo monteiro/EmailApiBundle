@@ -1,6 +1,10 @@
 <?php
 namespace HP\Bundle\EmailApiBundle\Factory;
 
+/**
+ * Class GoogleClientFactory
+ * Creates the Client service of the Google API.
+ */
 class GoogleClientFactory
 {
     /**
