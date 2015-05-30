@@ -1,9 +1,9 @@
 [![Build Status](https://travis-ci.org/monteiro/EmailApiBundle.svg?branch=master)](https://travis-ci.org/monteiro/EmailApiBundle)
 
 # EmailApiBundle
-This is a Symfony 2 Framework Bundle. The objective of this bundle is to provide a centralized way to comunicate with a large set of email APIs. This means that the comunication logic is unified and in each API case the specifics are worked over to achieve the same goals.
+This is a Symfony 2 Framework Bundle. The objective of this bundle is to provide an agnostic way to comunicate with several different email APIs. This means that the comunication logic is unified and in each API case the specifics are worked over to achieve the same goals.
 
-With this, a tool is provided to comunicate with, for instance, the Google Email API (Gmail) and the Microsoft Email API (Outlook) withut the need to distinguish between the two. All you need to focus on is your objectives.
+With this, a tool is provided to comunicate with, for example, the Google Email API (Gmail) and the Microsoft Email API (Outlook) without the need to distinguish between the two. All you need to focus on is your objectives.
 
 # Development
 Development is starting with the Google Email API (Gmail) and as it progresses so will this section.
