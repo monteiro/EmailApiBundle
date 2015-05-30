@@ -63,7 +63,7 @@ class GoogleApiGateway implements EmailApiGatewayInterface
     {
         $inboxMessage = new InboxMessage();
         $inboxMessage->setId($messageId);
-        $optionalParameters['format'] = 'full';
+        $optionalParameters['format'] = 'metadata';
         $message = $gmailService->users_messages->get($this->getPersonAuthenticatedEmail(), $messageId, $optionalParameters);
         $headers = $message->getPayload()->getHeaders();
         $inboxMessage->setSnippet($message->getSnippet());
