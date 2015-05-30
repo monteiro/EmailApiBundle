@@ -3,7 +3,14 @@ namespace HP\Bundle\EmailApiBundle\Presenter\DTO;
 
 class IdentityDTO
 {
+    /**
+     * @var string
+     */
     public $name;
+
+    /**
+     * @var string
+     */
     public $email;
 
     public function serialize()
