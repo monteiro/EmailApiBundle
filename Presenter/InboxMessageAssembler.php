@@ -6,6 +6,9 @@ use HP\Bundle\EmailApiBundle\Presenter\DTO\InboxMessageDTO;
 
 class InboxMessageAssembler
 {
+    /**
+     * @var $identityAssembler IdentityAssembler
+     */
     private $identityAssembler;
 
     public function __construct(IdentityAssembler $identityAssembler)

@@ -3,29 +3,34 @@ namespace HP\Bundle\EmailApiBundle\Entity;
 
 class InboxMessage
 {
+    /**
+     * @var int
+     */
     private $id;
 
     /**
      * Snippet of the message body
      *
-     * @var $snippet string
+     * @var string
      **/
     private $snippet;
 
     /**
      * Name and Email of the sender
      *
-     * @var $sender \HP\Bundle\EmailApiBundle\Entity\Identity
+     * @var \HP\Bundle\EmailApiBundle\Entity\Identity
      */
     private $sender;
 
     /**
-     * @var $subject string
+     * @var string
      */
     private $subject;
 
     /**
-     * @var $timestamp int in milliseconds of the message date
+     * In Milliseconds of the message date
+     *
+     * @var int
      */
     private $timestamp;
 

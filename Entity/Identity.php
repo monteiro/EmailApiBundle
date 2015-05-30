@@ -3,8 +3,14 @@ namespace HP\Bundle\EmailApiBundle\Entity;
 
 class Identity
 {
+    /**
+     * @var string
+     */
     private $name;
 
+    /**
+     * @var string
+     */
     private $email;
 
     public function getEmail()

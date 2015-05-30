@@ -3,6 +3,9 @@ namespace HP\Bundle\EmailApiBundle\Factory;
 
 class GoogleClientFactory
 {
+    /**
+     * @var array
+     */
     private $configuration;
 
     public function __construct($configuration)

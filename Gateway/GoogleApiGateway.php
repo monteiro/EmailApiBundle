@@ -7,7 +7,14 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class GoogleApiGateway implements EmailApiGatewayInterface
 {
+    /**
+     * @var $client \Google_Client google client api
+     */
     private $client;
+
+    /**
+     * @var $tokenStorage TokenStorageInterface token storage of the current authentication
+     */
     private $tokenStorage;
 
     public function __construct(\Google_Client $client, TokenStorageInterface $tokenStorage)
@@ -153,9 +160,6 @@ class GoogleApiGateway implements EmailApiGatewayInterface
      */
     private function getIdentity($recipientStr)
     {
-        /**
-         * "John Due <john.due@example.com>"
-         */
         $pattern = '/\s*"?([^><,"]+)"?\s*(?:<([^><,]+)>)?\s*/';
         preg_match($pattern, $recipientStr, $matches);
 

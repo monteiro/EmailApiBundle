@@ -8,7 +8,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class InboxController extends Controller
 {
+    /**
+     * @var EmailApiGatewayInterface
+     */
     private $gmailGateway;
+
+    /**
+     * @var InboxMessagesAssembler
+     */
     private $inboxMessageAssembler;
 
     public function __construct(EmailApiGatewayInterface $gmailGateway, InboxMessagesAssembler $inboxMessageAssembler)

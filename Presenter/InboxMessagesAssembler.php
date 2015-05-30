@@ -3,6 +3,9 @@ namespace HP\Bundle\EmailApiBundle\Presenter;
 
 class InboxMessagesAssembler
 {
+    /**
+     * @var InboxMessageAssembler
+     */
     private $assembler;
 
     public function __construct(InboxMessageAssembler $inboxMessageAssembler)
