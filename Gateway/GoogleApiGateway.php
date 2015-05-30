@@ -4,7 +4,6 @@ namespace HP\Bundle\EmailApiBundle\Gateway;
 use HP\Bundle\EmailApiBundle\Entity\Identity;
 use HP\Bundle\EmailApiBundle\Entity\InboxMessage;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\SecurityContext;
 
 class GoogleApiGateway implements EmailApiGatewayInterface
 {
@@ -60,29 +59,28 @@ class GoogleApiGateway implements EmailApiGatewayInterface
         return $inboxMessages;
     }
 
-    private function getMessage(\Google_Service_Gmail $gmailService, $messageId){
+    private function getMessage(\Google_Service_Gmail $gmailService, $messageId)
+    {
         $inboxMessage = new InboxMessage();
         $inboxMessage->setId($messageId);
         $optionalParameters['format'] = 'full';
-        $message = $gmailService->users_messages->get($this->getPersonAuthenticatedEmail(),$messageId, $optionalParameters);
+        $message = $gmailService->users_messages->get($this->getPersonAuthenticatedEmail(), $messageId, $optionalParameters);
         $headers = $message->getPayload()->getHeaders();
         $inboxMessage->setSnippet($message->getSnippet());
-        foreach($headers as $single) {
+        foreach ($headers as $single) {
             if ($single->getName() == 'Subject') {
                 $inboxMessage->setSubject($single->getValue());
-            }
-            else if ($single->getName() == 'Date') {
+            } elseif ($single->getName() == 'Date') {
                 $messageDate = $single->getValue();
                 $inboxMessage->setDate(strtotime($messageDate));
-            }
-            else if ($single->getName() == 'From') {
+            } elseif ($single->getName() == 'From') {
                 $messageSender = $single->getValue();
                 $messageSender = str_replace('"', '', $messageSender);
                 $inboxMessage->setSender($this->getIdentity($messageSender));
             }
         }
 
-       return $inboxMessage;
+        return $inboxMessage;
     }
 
     private function getIdentity($recipientStr)

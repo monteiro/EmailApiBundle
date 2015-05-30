@@ -10,9 +10,10 @@ class InboxMessagesAssembler
         $this->assembler = $inboxMessageAssembler;
     }
 
-    public function write(array $inboxMessages) {
+    public function write(array $inboxMessages)
+    {
         $resultSerialized = [];
-        foreach($inboxMessages as $message) {
+        foreach ($inboxMessages as $message) {
             $resultSerialized[] = $this->assembler->write($message)->serialize();
         }
 

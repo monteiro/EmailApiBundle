@@ -5,9 +5,6 @@ use HP\Bundle\EmailApiBundle\Gateway\EmailApiGatewayInterface;
 use HP\Bundle\EmailApiBundle\ViewModel\InboxMessagesAssembler;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class InboxController extends Controller
 {
@@ -24,11 +21,11 @@ class InboxController extends Controller
     {
         $this->gmailGateway->authenticate();
         $this->gmailGateway->getInbox();
-        $messages = $this->gmailGateway->getInbox(1);
+        $messages = $this->gmailGateway->getInbox(10);
 
         return new JsonResponse([
             'email' => $this->gmailGateway->getPersonAuthenticatedEmail(),
-            'messages' => $this->inboxMessageAssembler->write($messages)
+            'messages' => $this->inboxMessageAssembler->write($messages),
         ]);
     }
 }
