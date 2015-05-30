@@ -17,13 +17,16 @@ class GoogleApiGateway implements EmailApiGatewayInterface
     }
 
     /**
-     * This must be later refactored to a new client that does only the authentication
+     *  Authenticates the Google API Client according to the current user authenticated.
      */
     public function authenticate()
     {
         /**
          *  {"access_token":"TOKEN", "refresh_token":"TOKEN", "token_type":"Bearer",
          *  "expires_in":3600, "id_token":"TOKEN", "created":1320790426 }
+         *
+         * @var $oauthToken \HP\Bundle\EmailApiBundle\Security\TokenOAuthUser
+         * @return bool true if the token is not expired, else otherwise
          */
         $oauthToken = $this->tokenStorage->getToken();
         $token = [
@@ -35,10 +38,11 @@ class GoogleApiGateway implements EmailApiGatewayInterface
             'created' =>  $oauthToken->getCreatedAt(),
         ];
         $this->client->setAccessToken(json_encode($token));
+
+        return !$this->client->isAccessTokenExpired();
     }
 
     /**
-     *
      * @return string user's email authenticated
      */
     public function getPersonAuthenticatedEmail()
@@ -46,6 +50,12 @@ class GoogleApiGateway implements EmailApiGatewayInterface
         return $this->tokenStorage->getToken()->getUsername();
     }
 
+    /**
+     * Get all the messages Ids from the Gmail service and get all the Inbox messages information.
+     *
+     * @param int $maxResults max results to be returned
+     * @return array inbox messages
+     */
     public function getInbox($maxResults = EmailApiGatewayInterface::MAX_RESULTS_DEFAULT)
     {
         $gmailService = new \Google_Service_Gmail($this->client);
