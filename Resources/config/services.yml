@@ -1,0 +1,37 @@
+services:
+    email_api.factory.google_api:
+        class: HP\Bundle\EmailApiBundle\Factory\GoogleClientFactory
+        arguments:
+            - "%email_api%"
+
+    email_api.client.google_api:
+        class: Google_Client
+        factory: ["@email_api.factory.google_api", create]
+
+    email_api.user.gateway.google_api:
+        class: HP\Bundle\EmailApiBundle\Gateway\GoogleApiGateway
+        arguments:
+            - @email_api.client.google_api
+            - @security.token_storage
+
+    email_api.user.provider:
+        class: HP\Bundle\EmailApiBundle\Security\TokenOAuthUserProvider
+
+    email_api.view_model.identity_assembler:
+        class: HP\Bundle\EmailApiBundle\ViewModel\IdentityAssembler
+
+    email_api.view_model.inbox_message_assembler:
+        class: HP\Bundle\EmailApiBundle\ViewModel\InboxMessageAssembler
+        arguments:
+            - @email_api.view_model.identity_assembler
+
+    email_api.view_model.inbox_messages_assembler:
+        class: HP\Bundle\EmailApiBundle\ViewModel\InboxMessagesAssembler
+        arguments:
+            - @email_api.view_model.inbox_message_assembler
+
+    email_api.controller.inbox:
+        class: HP\Bundle\EmailApiBundle\Controller\InboxController
+        arguments:
+            - @email_api.user.gateway.google_api
+            - @email_api.view_model.inbox_messages_assembler
