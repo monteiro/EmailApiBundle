@@ -1,0 +1,15 @@
+# app/config/routing.yml
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /
+
+google_login:
+    pattern: /check-google
+
+hyspa_booking_request_application_payment:
+    pattern: /inbox/messages
+    defaults: { _controller: email_api.controller.inbox:getMessagesAction }
