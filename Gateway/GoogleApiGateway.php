@@ -44,27 +44,47 @@ class GoogleApiGateway implements EmailApiGatewayInterface
 
     public function getInbox($maxResults = EmailApiGatewayInterface::MAX_RESULTS_DEFAULT)
     {
-        $inboxMessages = [];
-        $service = new \Google_Service_Gmail($this->client);
+        $gmailService = new \Google_Service_Gmail($this->client);
         $optParams = [];
         $optParams['maxResults'] = $maxResults;
         $optParams['labelIds'] = 'INBOX'; // Only show messages in Inbox
-        $usersMessages = $service->users_messages->listUsersMessages($this->getPersonAuthenticatedEmail(), $optParams);
-        $messages = $usersMessages->getMessages();
-        for ($i = 0; $i < count($messages); $i++) {
-            $inboxMessage = $this->getMessage($service, $messages[$i]->getId());
-            $inboxMessages[] = $inboxMessage;
-        }
+        $this->client->setUseBatch(false);
+        $inboxMessages = $gmailService->users_messages->listUsersMessages($this->getPersonAuthenticatedEmail(), $optParams);
+        $inboxMessagesWithInformation = $this->getMessagesWithInformation($gmailService, $inboxMessages);
 
-        return $inboxMessages;
+        return $inboxMessagesWithInformation;
     }
 
-    private function getMessage(\Google_Service_Gmail $gmailService, $messageId)
+    private function getMessagesWithInformation($gmailService, $userMessages)
+    {
+        $inboxMessagesWithInformation = [];
+        $this->client->setUseBatch(true);
+        $batch =new \Google_Http_Batch($this->client);
+        $messages = $userMessages->getMessages();
+        for ($i = 0; $i < count($messages); $i++) {
+            $messageId = $messages[$i]->getId();
+            $optionalParameters['format'] = 'metadata';
+            $getMessagesRequest = $gmailService->users_messages->get(
+                $this->getPersonAuthenticatedEmail(),
+                $messageId,
+                $optionalParameters
+            );
+            $batch->add($getMessagesRequest);
+        }
+        $messagesWithInfo = $batch->execute();
+        foreach ($messagesWithInfo as $messageWithInfo) {
+            $inboxMessage = $this->getMessage($messageWithInfo);
+            $inboxMessagesWithInformation[] = $inboxMessage;
+        }
+
+        return $inboxMessagesWithInformation;
+    }
+
+    private function getMessage($message)
     {
         $inboxMessage = new InboxMessage();
-        $inboxMessage->setId($messageId);
+        $inboxMessage->setId($message['id']);
         $optionalParameters['format'] = 'metadata';
-        $message = $gmailService->users_messages->get($this->getPersonAuthenticatedEmail(), $messageId, $optionalParameters);
         $headers = $message->getPayload()->getHeaders();
         $inboxMessage->setSnippet($message->getSnippet());
         foreach ($headers as $single) {

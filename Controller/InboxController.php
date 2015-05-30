@@ -21,7 +21,7 @@ class InboxController extends Controller
     {
         $this->gmailGateway->authenticate();
         $this->gmailGateway->getInbox();
-        $messages = $this->gmailGateway->getInbox(10);
+        $messages = $this->gmailGateway->getInbox();
 
         return new JsonResponse([
             'email' => $this->gmailGateway->getPersonAuthenticatedEmail(),
