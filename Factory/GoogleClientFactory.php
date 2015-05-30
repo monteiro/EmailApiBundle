@@ -10,6 +10,11 @@ class GoogleClientFactory
         $this->configuration = $configuration;
     }
 
+    /**
+     * Creates a google client using the current configuration.
+     *
+     * @return \Google_Client a new google client instance
+     */
     public function create()
     {
         $client = new \Google_Client();

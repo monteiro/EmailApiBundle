@@ -17,6 +17,11 @@ class InboxController extends Controller
         $this->inboxMessageAssembler = $inboxMessageAssembler;
     }
 
+    /**
+     * Get all the emails from the Inbox.
+     *
+     * @return JsonResponse with the authenticated and user messages information
+     */
     public function getMessagesAction()
     {
         $this->gmailGateway->authenticate();

@@ -37,6 +37,10 @@ class GoogleApiGateway implements EmailApiGatewayInterface
         $this->client->setAccessToken(json_encode($token));
     }
 
+    /**
+     *
+     * @return string user's email authenticated
+     */
     public function getPersonAuthenticatedEmail()
     {
         return $this->tokenStorage->getToken()->getUsername();
@@ -55,11 +59,17 @@ class GoogleApiGateway implements EmailApiGatewayInterface
         return $inboxMessagesWithInformation;
     }
 
+    /**
+     * Creates a google batch with all the requests
+     *
+     * @param $gmailService
+     * @param $userMessages
+     * @return array
+     */
     private function getMessagesWithInformation($gmailService, $userMessages)
     {
-        $inboxMessagesWithInformation = [];
         $this->client->setUseBatch(true);
-        $batch =new \Google_Http_Batch($this->client);
+        $batch = new \Google_Http_Batch($this->client);
         $messages = $userMessages->getMessages();
         for ($i = 0; $i < count($messages); $i++) {
             $messageId = $messages[$i]->getId();
@@ -71,8 +81,22 @@ class GoogleApiGateway implements EmailApiGatewayInterface
             );
             $batch->add($getMessagesRequest);
         }
-        $messagesWithInfo = $batch->execute();
-        foreach ($messagesWithInfo as $messageWithInfo) {
+        $messagesWithInformationBatch = $batch->execute();
+        $inboxMessagesWithInformation = $this->parseMessagesWithInformation($messagesWithInformationBatch);
+
+        return $inboxMessagesWithInformation;
+    }
+
+    /**
+     * Parse the messages that come from the batch.
+     *
+     * @param  array $messagesWithInformation batch messages result
+     * @return array array of inboxMessages
+     */
+    private function parseMessagesWithInformation(array $messagesWithInformation)
+    {
+        $inboxMessagesWithInformation = [];
+        foreach ($messagesWithInformation as $messageWithInfo) {
             $inboxMessage = $this->getMessage($messageWithInfo);
             $inboxMessagesWithInformation[] = $inboxMessage;
         }
@@ -80,7 +104,13 @@ class GoogleApiGateway implements EmailApiGatewayInterface
         return $inboxMessagesWithInformation;
     }
 
-    private function getMessage($message)
+    /**
+     * Gets the headers and create an InboxMessage object with all of the information needed by the Inbox.
+     *
+     * @param  \Google_Service_Gmail_Message $message message to parse
+     * @return InboxMessage                  inbox message object
+     */
+    private function getMessage(\Google_Service_Gmail_Message $message)
     {
         $inboxMessage = new InboxMessage();
         $inboxMessage->setId($message['id']);
@@ -92,7 +122,7 @@ class GoogleApiGateway implements EmailApiGatewayInterface
                 $inboxMessage->setSubject($single->getValue());
             } elseif ($single->getName() == 'Date') {
                 $messageDate = $single->getValue();
-                $inboxMessage->setDate(strtotime($messageDate));
+                $inboxMessage->setTimestamp(strtotime($messageDate));
             } elseif ($single->getName() == 'From') {
                 $messageSender = $single->getValue();
                 $messageSender = str_replace('"', '', $messageSender);
@@ -103,6 +133,14 @@ class GoogleApiGateway implements EmailApiGatewayInterface
         return $inboxMessage;
     }
 
+    /**
+     * According to a recipientStr creates an Identity object.
+     * Example of the $recipientStr:
+     *   "John Due <john.due@example.com>"
+     *
+     * @param $recipientStr
+     * @return Identity
+     */
     private function getIdentity($recipientStr)
     {
         /**

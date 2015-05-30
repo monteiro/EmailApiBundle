@@ -10,6 +10,12 @@ class InboxMessagesAssembler
         $this->assembler = $inboxMessageAssembler;
     }
 
+    /**
+     * Goes through the list of inbox messages and creates a new list with the serialized objects.
+     *
+     * @param  array $inboxMessages list of inbox messages
+     * @return array with all the DTOs already serialized
+     */
     public function write(array $inboxMessages)
     {
         $resultSerialized = [];

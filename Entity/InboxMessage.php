@@ -5,16 +5,29 @@ class InboxMessage
 {
     private $id;
 
+    /**
+     * Snippet of the message body
+     *
+     * @var $snippet string
+     **/
     private $snippet;
 
     /**
-     * @var \HP\Bundle\EmailApiBundle\Entity\Identity
+     * Name and Email of the sender
+     *
+     * @var $sender \HP\Bundle\EmailApiBundle\Entity\Identity
      */
     private $sender;
 
+    /**
+     * @var $subject string
+     */
     private $subject;
 
-    private $date;
+    /**
+     * @var $timestamp timestamp in miliseconds of the message date
+     */
+    private $timestamp;
 
     public function getId()
     {
@@ -64,14 +77,14 @@ class InboxMessage
         return $this;
     }
 
-    public function getDate()
+    public function getTimestamp()
     {
-        return $this->date;
+        return $this->timestamp;
     }
 
-    public function setDate($date)
+    public function setTimestamp($timestamp)
     {
-        $this->date = $date;
+        $this->timestamp = $timestamp;
 
         return $this;
     }

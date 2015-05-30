@@ -3,6 +3,12 @@ namespace HP\Bundle\EmailApiBundle\Security;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class TokenOAuthUser
+ *
+ * Used when authenticated through OAuth.
+ *
+ */
 class TokenOAuthUser implements UserInterface
 {
     /**
