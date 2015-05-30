@@ -3,7 +3,7 @@ namespace HP\Bundle\EmailApiBundle\Gateway;
 
 interface EmailApiGatewayInterface
 {
-    const MAX_RESULTS_DEFAULT = 10;
+    const MAX_RESULTS_DEFAULT = 50;
 
     public function authenticate();
     public function getPersonAuthenticatedEmail();
