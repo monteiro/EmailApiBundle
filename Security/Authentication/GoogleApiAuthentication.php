@@ -31,8 +31,7 @@ class GoogleApiAuthentication implements ApiAuthenticationInterface
 
     public function __construct(
         $firewallName,
-        GoogleResourceOwner
-        $googleResourceOwner,
+        GoogleResourceOwner $googleResourceOwner,
         TokenStorageInterface $tokenStorage
     ) {
         $this->firewallName = $firewallName;
