@@ -43,8 +43,8 @@ class GoogleApiAuthentication implements ApiAuthenticationInterface
     /**
      * Refreshes the access token.
      *
-     * @param Request $request http request
-     * @return bool true if the token was refreshed, false otherwise
+     * @param  Request $request http request
+     * @return bool    true if the token was refreshed, false otherwise
      */
     public function refreshToken(Request $request)
     {
@@ -64,8 +64,8 @@ class GoogleApiAuthentication implements ApiAuthenticationInterface
      * Refreshes token asking for the resource owner (in this case Google).
      * The resource owner is responsible for saving it in the session the new access token.
      *
-     * @param OAuthToken $oAuthToken token that will refresh the token.
-     * @return bool true if the access token is set, false otherwise
+     * @param  OAuthToken $oAuthToken token that will refresh the token.
+     * @return bool       true if the access token is set, false otherwise
      */
     private function refreshTokenWithResourceOwner(OAuthToken $oAuthToken)
     {
@@ -84,8 +84,8 @@ class GoogleApiAuthentication implements ApiAuthenticationInterface
     /**
      * Verifies if token has expired or not according to the $oAuthToken creation date.
      *
-     * @param OAuthToken $oAuthToken token that will be verified
-     * @return bool true if token has been expired, false otherwise
+     * @param  OAuthToken $oAuthToken token that will be verified
+     * @return bool       true if token has been expired, false otherwise
      */
     private function isAccessTokenExpired(OAuthToken $oAuthToken)
     {
