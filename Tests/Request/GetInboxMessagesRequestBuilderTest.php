@@ -5,6 +5,8 @@ use HP\Bundle\EmailApiBundle\Request\GetInboxMessagesRequestBuilder;
 
 class GetInboxMessagesRequestBuilderTest extends \PHPUnit_Framework_TestCase
 {
+    const MAX_RESULTS = 100;
+
     /**
      * @var GetInboxMessagesRequestBuilder
      */
@@ -20,14 +22,12 @@ class GetInboxMessagesRequestBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuilder()
     {
-        $maxResults = 100;
-
         $dto = $this->builder
             ->create()
-            ->setMaxResults($maxResults)
+            ->setMaxResults(GetInboxMessagesRequestBuilderTest::MAX_RESULTS)
             ->build();
 
         $this->assertInstanceOf('HP\Bundle\EmailApiBundle\Request\DTO\GetInboxMessagesRequestDTO', $dto);
-        $this->assertEquals($maxResults, $dto->maxResults);
+        $this->assertEquals(GetInboxMessagesRequestBuilderTest::MAX_RESULTS, $dto->maxResults);
     }
 }
