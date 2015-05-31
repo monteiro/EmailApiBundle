@@ -15,6 +15,10 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class GoogleApiAuthenticationTest extends \PHPUnit_Framework_TestCase
 {
+
+    const EXPIRED_IN_SECONDS = -100;
+    const NOT_EXPIRED_IN_SECONDS = 100;
+
     /**
      * @var GoogleApiAuthentication
      */
@@ -46,7 +50,11 @@ class GoogleApiAuthenticationTest extends \PHPUnit_Framework_TestCase
             $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')
                 ->getMock();
 
-        $this->googleApiAuthentication = new GoogleApiAuthentication($this->firewallName, $this->googleResourceOwner, $this->tokenStorage);
+        $this->googleApiAuthentication = new GoogleApiAuthentication(
+            $this->firewallName,
+            $this->googleResourceOwner,
+            $this->tokenStorage
+        );
     }
 
     /**
@@ -54,12 +62,8 @@ class GoogleApiAuthenticationTest extends \PHPUnit_Framework_TestCase
      */
     public function testRefreshTokenNotExpired()
     {
-        $today = new \DateTime();
-        $oauthToken = $this->getOAuthToken();
-        $oauthToken->setCreatedAt($today->getTimestamp());
-        $oauthToken->setExpiresIn(100);
-        $oauthTokenSerialized = serialize($oauthToken);
-        $request = $this->getRequestWithSession($oauthTokenSerialized);
+        $oauthToken = $this->getOAuthToken(GoogleApiAuthenticationTest::NOT_EXPIRED_IN_SECONDS);
+        $request = $this->getRequestWithSession(serialize($oauthToken));
 
         $tokenHasBeenUpdated = $this->googleApiAuthentication->refreshToken($request);
 
@@ -71,12 +75,8 @@ class GoogleApiAuthenticationTest extends \PHPUnit_Framework_TestCase
      */
     public function testRefreshTokenExpired()
     {
-        $today = new \DateTime();
-        $oauthToken = $this->getOAuthToken();
-        $oauthToken->setCreatedAt($today->getTimestamp());
-        $oauthToken->setExpiresIn(-100);
-        $oauthTokenSerialized = serialize($oauthToken);
-        $request = $this->getRequestWithSession($oauthTokenSerialized);
+        $oauthToken = $this->getOAuthToken(GoogleApiAuthenticationTest::EXPIRED_IN_SECONDS);
+        $request = $this->getRequestWithSession(serialize($oauthToken));
         $this->mockTokenStorage($oauthToken);
         $this->mockGoogleResourceOwner();
 
@@ -91,18 +91,24 @@ class GoogleApiAuthenticationTest extends \PHPUnit_Framework_TestCase
      */
     public function testRefreshTokenExpiredWithoutTokenInStorage()
     {
-        $today = new \DateTime();
-        $oauthToken = $this->getOAuthToken();
-        $oauthToken->setCreatedAt($today->getTimestamp());
-        $oauthToken->setExpiresIn(-100);
-        $oauthTokenSerialized = serialize($oauthToken);
-        $request = $this->getRequestWithSession($oauthTokenSerialized);
+        $oauthToken = $this->getOAuthToken(GoogleApiAuthenticationTest::EXPIRED_IN_SECONDS);
+        $request = $this->getRequestWithSession(serialize($oauthToken));
         $this->mockTokenStorage(null);
         $this->mockGoogleResourceOwner();
 
         $tokenHasBeenUpdated = $this->googleApiAuthentication->refreshToken($request);
 
         $this->assertFalse($tokenHasBeenUpdated);
+    }
+
+    private function getOAuthToken($expiresInSeconds)
+    {
+        $today = new \DateTime();
+        $oauthToken = new OAuthToken('testAccessToken');
+        $oauthToken->setCreatedAt($today->getTimestamp());
+        $oauthToken->setExpiresIn($expiresInSeconds);
+
+        return $oauthToken;
     }
 
     private function mockTokenStorage($oauthToken)
@@ -133,12 +139,5 @@ class GoogleApiAuthenticationTest extends \PHPUnit_Framework_TestCase
         $request->expects($this->once())->method('getSession')->will($this->returnValue($this->getSessionMock($oauthSerialized)));
 
         return $request;
-    }
-
-    private function getOAuthToken()
-    {
-        $oauthToken = new OAuthToken('testAccessToken');
-
-        return $oauthToken;
     }
 }
