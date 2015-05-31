@@ -36,7 +36,6 @@ class InboxController extends Controller
     public function getMessagesAction()
     {
         $this->gmailGateway->authenticate();
-        $this->gmailGateway->getInbox();
         $messages = $this->gmailGateway->getInbox();
 
         return new JsonResponse([
