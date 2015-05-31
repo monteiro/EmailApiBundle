@@ -41,7 +41,7 @@ class InboxController extends Controller
         $params = json_decode($frameworkRequest->getContent());
         $request = $this->getInboxMessagesRequestBuilder
             ->create()
-            ->setMaxResults(isset($params['max_results']) ?: $params['maxResults'])
+            ->setMaxResults(isset($params['max_results']) ? $params['maxResults'] : null)
             ->build();
 
         return $this->getInboxMessagesUsecase->execute($request);
