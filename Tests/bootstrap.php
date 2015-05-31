@@ -1,5 +1,7 @@
-if (!is_file($autoloadFile = __DIR__.'/../vendor/autoload.php')) {
-    throw new \LogicException('Could not find autoload.php in vendor/. Did you run "composer install --dev"?');
-}
+<?php
 
-require $autoloadFile;
+if (file_exists($file = __DIR__.'/../vendor/autoload.php')) {
+    $autoload = require_once $file;
+} else {
+    throw new RuntimeException('Install dependencies to run test suite.');
+}

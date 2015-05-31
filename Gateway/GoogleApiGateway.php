@@ -42,7 +42,7 @@ class GoogleApiGateway implements EmailApiGatewayInterface
         $oauthToken = $this->tokenStorage->getToken();
         $token = [
             'access_token' => $oauthToken->getAccessToken(),
-            'refresh_token' => $oauthToken->getAccessToken(),
+            'refresh_token' => $oauthToken->getRefreshToken(),
             'token_type' => 'Bearer',
             'expires_in' => $oauthToken->getExpiresIn(),
             'id_token' => $oauthToken->getAccessToken(),

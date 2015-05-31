@@ -1,0 +1,14 @@
+services:
+    email_api.security.authentication.google_api_authentication:
+        class: HP\Bundle\EmailApiBundle\Security\Authentication\GoogleApiAuthentication
+        arguments:
+            - %hwi_oauth.firewall_name%
+            - @hwi_oauth.resource_owner.google
+            - @security.token_storage
+
+    email_api.security.oauth_token_expired_listener:
+        class: HP\Bundle\EmailApiBundle\Security\OAuthTokenExpiredListener
+        arguments:
+            - @email_api.security.authentication.google_api_authentication
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
