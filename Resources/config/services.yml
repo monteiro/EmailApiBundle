@@ -30,8 +30,11 @@ services:
         arguments:
             - @email_api.presenter.inbox_message_assembler
 
+    email_api.request.get_inbox_messages_request_builder:
+        class: HP\Bundle\EmailApiBundle\Request\GetInboxMessagesRequestBuilder
+
     email_api.controller.inbox:
         class: HP\Bundle\EmailApiBundle\Controller\InboxController
         arguments:
-            - @email_api.user.gateway.google_api
-            - @email_api.presenter.inbox_messages_assembler
+            - @email_api.usecase.get_inbox_messages
+            - @email_api.request.get_inbox_messages_request_builder

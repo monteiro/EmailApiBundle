@@ -31,5 +31,6 @@ class EmailApiExtension extends Extension
             'redirect_uri' => $config['redirect_uri']
         ]);
         $loader->load('security.yml');
+        $loader->load('usecases.yml');
     }
 }
