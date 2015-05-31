@@ -1,0 +1,6 @@
+services:
+    email_api.usecase.get_inbox_messages:
+        class: HP\Bundle\EmailApiBundle\Usecase\Inbox\GetInboxMessagesUsecase
+        arguments:
+            - @email_api.user.gateway.google_api
+            - @email_api.presenter.inbox_messages_assembler
