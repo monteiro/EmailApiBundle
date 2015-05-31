@@ -85,7 +85,27 @@ class GoogleApiAuthenticationTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($tokenHasBeenUpdated);
     }
 
-    private function mockTokenStorage(OAuthToken $oauthToken)
+    /**
+     * Test when the access token is expired, but there is no token available in the
+     * token storage to be updated.
+     */
+    public function testRefreshTokenExpiredWithoutTokenInStorage()
+    {
+        $today = new \DateTime();
+        $oauthToken = $this->getOAuthToken();
+        $oauthToken->setCreatedAt($today->getTimestamp());
+        $oauthToken->setExpiresIn(-100);
+        $oauthTokenSerialized = serialize($oauthToken);
+        $request = $this->getRequestWithSession($oauthTokenSerialized);
+        $this->mockTokenStorage(null);
+        $this->mockGoogleResourceOwner();
+
+        $tokenHasBeenUpdated = $this->googleApiAuthentication->refreshToken($request);
+
+        $this->assertFalse($tokenHasBeenUpdated);
+    }
+
+    private function mockTokenStorage($oauthToken)
     {
         $this->tokenStorage->expects($this->once())->method('getToken')->will($this->returnValue($oauthToken));
     }
