@@ -32,7 +32,7 @@ class GetInboxMessagesUsecase implements GetInboxMessagesUsecaseInterface
     /**
      * Executes the usecase
      *
-     * @param GetInboxMessagesRequestDTO $request
+     * @param  GetInboxMessagesRequestDTO $request
      * @return JsonResponse
      */
     public function execute(GetInboxMessagesRequestDTO $request)

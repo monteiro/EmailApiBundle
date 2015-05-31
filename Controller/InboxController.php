@@ -1,8 +1,6 @@
 <?php
 namespace HP\Bundle\EmailApiBundle\Controller;
 
-use HP\Bundle\EmailApiBundle\Gateway\EmailApiGatewayInterface;
-use HP\Bundle\EmailApiBundle\Presenter\InboxMessagesAssembler;
 use HP\Bundle\EmailApiBundle\Request\GetInboxMessagesRequestBuilderInterface;
 use HP\Bundle\EmailApiBundle\Usecase\Inbox\GetInboxMessagesUsecaseInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
