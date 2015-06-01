@@ -52,7 +52,7 @@ class GoogleApiAuthentication implements ApiAuthenticationInterface
          * The name of the session depends of HWIOAuthBundle
          */
         $oAuthToken = unserialize($session->get('_security_'.$this->firewallName));
-        if ($this->isAccessTokenExpired($oAuthToken)) {
+        if (!empty($oAuthToken) && $this->isAccessTokenExpired($oAuthToken)) {
             return $this->refreshTokenWithResourceOwner($oAuthToken);
         }
 
