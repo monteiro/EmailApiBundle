@@ -101,6 +101,16 @@ class GoogleApiAuthenticationTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($tokenHasBeenUpdated);
     }
 
+    public function testSessionWithoutOAuthToken()
+    {
+        $oauthToken = $this->getOAuthToken(GoogleApiAuthenticationTest::EXPIRED_IN_SECONDS);
+        $request = $this->getRequestEmptySession();
+
+        $result = $this->googleApiAuthentication->refreshToken($request);
+
+
+    }
+
     private function getOAuthToken($expiresInSeconds)
     {
         $today = new \DateTime();
@@ -139,5 +149,10 @@ class GoogleApiAuthenticationTest extends \PHPUnit_Framework_TestCase
         $request->expects($this->once())->method('getSession')->will($this->returnValue($this->getSessionMock($oauthSerialized)));
 
         return $request;
+    }
+
+    private function getRequestEmptySession()
+    {
+        return $this->getRequestWithSession(null);
     }
 }
