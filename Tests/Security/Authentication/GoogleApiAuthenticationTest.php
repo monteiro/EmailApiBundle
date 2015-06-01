@@ -101,14 +101,17 @@ class GoogleApiAuthenticationTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($tokenHasBeenUpdated);
     }
 
+    /**
+     * When the user is not authenticated, the token does not exist in session.
+     * Test when trying to serialize an object that does not exist in session.
+     */
     public function testSessionWithoutOAuthToken()
     {
-        $oauthToken = $this->getOAuthToken(GoogleApiAuthenticationTest::EXPIRED_IN_SECONDS);
         $request = $this->getRequestEmptySession();
 
-        $result = $this->googleApiAuthentication->refreshToken($request);
+        $tokenHasBeenUpdated = $this->googleApiAuthentication->refreshToken($request);
 
-
+        $this->assertEquals(false, $tokenHasBeenUpdated);
     }
 
     private function getOAuthToken($expiresInSeconds)
