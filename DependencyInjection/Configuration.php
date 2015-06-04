@@ -20,9 +20,9 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $treeBuilder->root('email_api')
             ->children()
-            ->scalarNode('client_id')->end()
-            ->scalarNode('client_secret')->end()
-            ->scalarNode('redirect_uri')->end()
+                ->scalarNode('client_id')->end()
+                ->scalarNode('client_secret')->end()
+                ->scalarNode('redirect_uri')->end()
             ->end();
 
         return $treeBuilder;
