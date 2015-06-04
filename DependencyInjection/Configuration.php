@@ -18,12 +18,12 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('email_api')
-                    ->children()
-                        ->scalarNode('client_id')->end()
-                        ->scalarNode('client_secret')->end()
-                        ->scalarNode('redirect_uri')->end()
-                    ->end();
+        $treeBuilder->root('email_api')
+            ->children()
+            ->scalarNode('client_id')->end()
+            ->scalarNode('client_secret')->end()
+            ->scalarNode('redirect_uri')->end()
+            ->end();
 
         return $treeBuilder;
     }
