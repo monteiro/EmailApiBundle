@@ -64,7 +64,7 @@ class GoogleApiGateway implements EmailApiGatewayInterface
     /**
      * Get all the messages Ids from the Gmail service and get all the Inbox messages information.
      *
-     * @param int $maxResults max results to be returned
+     * @param  int   $maxResults max results to be returned
      * @return array inbox messages
      */
     public function getInbox($maxResults = EmailApiGatewayInterface::MAX_RESULTS_DEFAULT)
@@ -92,7 +92,8 @@ class GoogleApiGateway implements EmailApiGatewayInterface
         $this->client->setUseBatch(true);
         $batch = new \Google_Http_Batch($this->client);
         $messages = $userMessages->getMessages();
-        for ($i = 0; $i < count($messages); $i++) {
+        $totalMessages = count($messages);
+        for ($i = 0; $i < $totalMessages; $i++) {
             $messageId = $messages[$i]->getId();
             $optionalParameters['format'] = 'metadata';
             $getMessagesRequest = $gmailService->users_messages->get(
@@ -135,7 +136,6 @@ class GoogleApiGateway implements EmailApiGatewayInterface
     {
         $inboxMessage = new InboxMessage();
         $inboxMessage->setId($message['id']);
-        $optionalParameters['format'] = 'metadata';
         $headers = $message->getPayload()->getHeaders();
         $inboxMessage->setSnippet($message->getSnippet());
         foreach ($headers as $single) {

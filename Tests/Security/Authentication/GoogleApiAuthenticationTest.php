@@ -15,7 +15,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class GoogleApiAuthenticationTest extends \PHPUnit_Framework_TestCase
 {
-
     const EXPIRED_IN_SECONDS = -100;
     const NOT_EXPIRED_IN_SECONDS = 100;
 
