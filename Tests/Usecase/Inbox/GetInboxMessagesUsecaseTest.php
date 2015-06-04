@@ -27,7 +27,6 @@ class GetInboxMessagesUsecaseTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-
         $this->gmailGateway = $this->getMockBuilder('HP\Bundle\EmailApiBundle\Gateway\GoogleApiGateway')
             ->disableOriginalConstructor()
             ->getMock();
