@@ -2,10 +2,7 @@
 namespace HP\Bundle\EmailApiBundle\Security;
 
 use HP\Bundle\EmailApiBundle\Security\Authentication\ApiAuthenticationInterface;
-use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\GoogleResourceOwner;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Class OAuthTokenExpiredListener
